@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Marketplace Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: #f3f4f6;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            height: 100vh;
+            width: 270px;
+            background: linear-gradient(45deg, #2a9d8f, #264653);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: #e9c46a;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .nav-item a:hover {
+            background: rgba(233, 196, 106, 0.9);
+            color: #264653;
+            font-weight: bold;
+        }
+
+        /* Main content styling */
+        .main-content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+
+        .header {
+            background: #e9c46a;
+            color: #264653;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            margin: 0;
+        }
+
+        .logout-btn {
+            background-color: #e76f51;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #d35400;
+        }
+
+        /* Earnings Box Styling */
+        .earnings-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .earnings-box {
+            background: linear-gradient(135deg, #e9c46a, #f4a261);
+            color: #264653;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 250px;
+        }
+
+        .earnings-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .earnings-box h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .earnings-box p {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .chart-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .chart-box h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #264653;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Farmer Dashboard</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a href="/marketprice"><i class="fas fa-chart-line"></i> Market Prices</a>
+            </li>
+            <li class="nav-item">
+                <a href="/addproduct"><i class="fas fa-plus-circle"></i> Add Products</a>
+            </li>
+            <li class="nav-item">
+                <a href="#purchase-history"><i class="fas fa-history"></i> Purchase History</a>
+            </li>
+            <li class="nav-item">
+                <a href="/fertilizers"><i class="fas fa-seedling"></i> Fertilizers</a>
+            </li>
+            <li class="nav-item">
+                <a href="/loans"><i class="fas fa-hand-holding-usd"></i> Loans & Benefits</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>Welcome,<%=name%>!</h1>
+            <button class="logout-btn">Logout</button>
+        </div>
+
+        <!-- Earnings for This Month, Last Month, and Sum of Last Three Months -->
+        <div class="earnings-container">
+            <div class="earnings-box">
+                <h2>₹<%=totalmoneythismonth%></h2>
+                <p>This Month Earnings</p>
+            </div>
+            <div class="earnings-box">
+                <% if (totalmoneylastmonth == null) { %>
+                    <h2>0</h2>
+                <% } else { %>
+                <h2>₹<%=totalmoneylastmonth%></h2>
+                <%}%>
+                <p>Last Month Earnings</p>
+            </div>
+            <div class="earnings-box">
+                <h2>₹<%=totalmoneylastthreemonths%></h2>
+                <p>Total Earnings (Last 3 Months)</p>
+            </div>
+        </div>
+        <!-- Charts Section -->
+        <div class="charts-container">
+            <div class="chart-box">
+                <h2>Sales This Year</h2>
+                <canvas id="salesChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h2>Earnings This Year</h2>
+                <canvas id="earningsChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- Chart.js Script -->
+    <script>
+        const labels = JSON.parse('<%- JSON.stringify(labels) %>')
+        const data = JSON.parse('<%- JSON.stringify(data) %>') 
+        const quantity = JSON.parse('<%- JSON.stringify(quantity) %>')
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        const earningsCtx = document.getElementById('earningsChart').getContext('2d');
+
+        // Sales Chart
+        new Chart(salesCtx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Products Sold',
+                    data: quantity,
+                    backgroundColor: '#2a9d8f'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+        // Earnings Chart
+        new Chart(earningsCtx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Earnings (₹)',
+                    data: data,
+                    borderColor: '#e76f51',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

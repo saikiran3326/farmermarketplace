@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart and Checkout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px;
+            background-color: #6a0f76;
+            color: white;
+            border-radius: 15px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .header p {
+            font-size: 18px;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        /* Cart Section */
+        .cart-section {
+            margin-top: 30px;
+        }
+
+        .cart-section h3 {
+            font-size: 28px;
+            color: #6a0f76;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item img {
+            max-width: 300px;
+            border-radius: 8px;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+            padding-left: 20px;
+        }
+
+        .cart-item-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .cart-item-price {
+            font-size: 20px;
+            color: #6a0f76;
+        }
+
+        .cart-item-quantity {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .remove-item-btn {
+            font-size: 18px;
+            color: #e63946;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* Checkout Section */
+        .checkout-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #ddd;
+        }
+
+        .checkout-section h3 {
+            font-size: 28px;
+            color: #6a0f76;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Billing Information */
+        .billing-info {
+            margin-top: 30px;
+        }
+
+        .billing-info .form-group {
+            margin-bottom: 20px;
+        }
+
+        .billing-info .form-label {
+            font-size: 18px;
+            color: #444;
+        }
+
+        .billing-info .form-control {
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .billing-info .form-control:focus {
+            border-color: #6a0f76;
+            box-shadow: 0 0 10px rgba(106, 15, 118, 0.4);
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 20px;
+        }
+
+        .payment-method {
+            width: 30%;
+            padding: 20px;
+            background: #f7f7f7;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .payment-method:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transform: scale(1.05);
+        }
+
+        .payment-method img {
+            max-width: 60%;
+            margin-bottom: 15px;
+        }
+
+        .payment-method p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Billing Summary */
+        .billing-summary {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-top: 40px;
+        }
+
+        .billing-summary h4 {
+            font-size: 24px;
+            color: #6a0f76;
+            margin-bottom: 20px;
+        }
+
+        .billing-summary .price {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .billing-summary .total {
+            font-size: 26px;
+            font-weight: bold;
+            color: #6a0f76;
+        }
+
+        .billing-summary .total span {
+            color: #d95077;
+        }
+
+        /* Action Buttons */
+        .checkout-actions {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 30px;
+        }
+
+        .pay-btn,
+        .cancel-btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pay-btn {
+            background-color: #457b9d;
+            color: white;
+            border: none;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .pay-btn:hover {
+            background-color: #1d3557;
+            transform: translateY(-3px);
+        }
+
+        .cancel-btn {
+            background-color: #e63946;
+            color: white;
+            border: none;
+        }
+
+        .cancel-btn:hover {
+            background-color: #d62e2e;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .quantity-control {
+      display: flex;
+      border: 1px solid #000;
+      width: 100px; /* Adjusted for better layout */
+      justify-content: space-around;
+      align-items: center;
+      border-radius: 5px;
+      padding: 5px;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+    .quantity-control button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .quantity-control button:hover {
+      background-color: #0056b3;
+    }
+    .quantity-control p {
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .payment-methods {
+                flex-direction: column;
+            }
+
+            .payment-method {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Cart & Checkout</h1>
+            <p>Review your items and complete the payment</p>
+        </div>
+
+        <!-- Cart Section -->
+        <div class="cart-section">
+            <h3>Your Cart</h3>
+            <% products.forEach(product => { %>
+            <div class="cart-item">
+                <img src=<%=product.img%> alt="Product">
+                <div class="cart-item-details">
+                    <p class="cart-item-name"><%=product.name%></p>
+                    <p class="cart-item-price"><%=product.price%></p>
+                    <p class="cart-item-quantity">
+                        Quantity<div class="quantity-control">
+                            <form action="/increment/<%=product.id%>" method="post">
+                                <button>+</button>
+                            </form>
+      
+                            <!-- Quantity Display -->
+                            <p id="quantity-<%= product.id %>"><%=quantity[product.id]%></p>
+                            
+                            <!-- Decrement Button -->
+                            <form action="/decrement/<%=product.id%>" method="post">
+                                <button >-</button>
+                            </form>
+                          </div>
+                        </div>
+                    </p>
+                    <form action="/remove/<%=product.id%>" method="post">
+                        <button class="remove-item-btn"><i class="fa fa-trash"></i> Remove</button>
+                    </form>
+                </div>
+            <%})%>
+        </div>
+
+        <!-- Checkout Section -->
+        <div class="checkout-section">
+            <h3>Checkout</h3>
+            <form action="/cartandcheckout/success" method="post">
+            <!-- Billing Information -->
+            <div class="billing-info">
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea id="address" name="address" class="form-control" rows="3" placeholder="Enter your address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="contact" class="form-label">Contact Number</label>
+                    <input type="text" name="contact" id="contact" class="form-control" placeholder="Enter your contact number" required>
+                </div>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="payment-methods">
+                <div id="ff1" class="payment-method" onclick="ff('ff1')">
+                    <img src="https://img.icons8.com/?size=100&id=E918byKTpzjx&format=png&color=000000" alt="cod">
+                    <p>Cash on Delievery</p>
+                </div>
+                <div id="ff2" class="payment-method" onclick="ff('ff2')">
+                    <img src="https://img.icons8.com/?size=100&id=100116&format=png&color=000000" alt="UPI">
+                    <p>UPI</p>
+                </div>
+            </div>
+<input id="mode" type="hidden" name="mode">
+            <!-- Billing Summary -->
+            <div class="billing-summary">
+                <h4>Billing Summary</h4>
+                <% let names=""%>
+                <% let quantities=0;%>
+                <%products.forEach(element => {%>
+<%names+=(element.name+" ");%>
+<%quantities+=parseInt(quantity[element.id]);%>
+                <p class="price"><%=element.name%> x<%=quantity[element.id]%> - <%=(parseInt(element.price)*quantity[element.id])%></p>
+                <%});%>
+                <input type="hidden" value=<%=names%> name="names">
+                <input type="hidden" value=<%=quantities%> name="quantities">
+                <%let sum=0%>
+                <% products.forEach(product=>{%>
+                    <%sum+=(parseInt(product.price)*quantity[product.id]);%>
+                <%})%>
+                <p class="total">Total: <%=sum%></p>
+            </div>
+            <input type="hidden" value=<%=sum%> name="sum">
+            <!-- Checkout Actions -->
+            <div class="checkout-actions">
+                    <button class="pay-btn">done payment</button>
+                <form action="/products" method="get">
+                    <button class="cancel-btn" onclick="history.clear()">Cancel</button>
+                </form>
+            </div>
+        </form>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2024 Farmer's Market</p>
+        </div>
+    </div>
+    <% let pp=products%>
+<script>
+    
+  function ff(id){
+    if(id=="ff1"){
+      document.getElementById(id).style.backgroundColor="red";
+      document.getElementById('ff2').style.backgroundColor="white";
+      document.getElementById('mode').setAttribute("value","COD");
+    }
+    else{
+      document.getElementById(id).style.backgroundColor="red";
+      document.getElementById('ff1').style.backgroundColor="white";
+      document.getElementById('mode').setAttribute("value","UPI");
+    }
+  }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Farmer Marketplace</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Ensure the body and html fill the entire page */
+    body,
+    html {
+      height: 100%;
+      background-color: #f1f8e9; /* Light green background for farming theme */
+    }
+
+    /* Center the form section */
+    .vh-150 {
+      height: 87vh;
+    }
+
+    /* Add margin for social login section */
+    .social-login {
+      margin-bottom: 30px;
+    }
+
+    /* Divider styles */
+    .divider {
+      border-top: 1px solid #ddd;
+      margin: 20px 0;
+      width: 100%;
+      position: relative;
+    }
+
+    .divider-text {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #f1f8e9; /* Matching background color */
+      padding: 0 10px;
+    }
+
+    /* Customize the login form section */
+    .login-form {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* Custom styling for buttons */
+    .btn-farmer {
+      background-color: #8bc34a; /* Green color */
+      color: white;
+    }
+
+    .btn-farmer:hover {
+      background-color: #7cb342;
+    }
+
+    /* Custom Font Style */
+    .title {
+      color: #388e3c;
+      font-weight: bold;
+    }
+
+    .social-login button {
+      background-color: #388e3c; /* Green color for buttons */
+    }
+
+    /* Footer Section */
+    .footer {
+      background-color: #388e3c;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: white;
+    }
+
+    .footer a:hover {
+      color: #a5d6a7;
+    }
+
+    /* Floating label effect */
+    .form-outline {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .form-outline input {
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      transition: all 0.3s ease-in-out;
+      padding: 10px 15px;
+      width: 100%;
+    }
+    .form-outline label {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      transition: 0.3s ease-in-out;
+      color: #888;
+    }
+
+    .form-outline input:focus {
+      border-color: #388e3c;
+    }
+
+    .form-outline input:focus + label {
+      top: -15px;
+      left: 15px;
+      color: #388e3c;
+      font-size: 12px;
+    }
+
+    .form-outline input:not(:placeholder-shown) + label {
+      top: -15px;
+      left: 15px;
+      color: #388e3c;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="vh-150">
+    <div class="container-fluid h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <!-- Image section -->
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="https://clipart-library.com/2023/indian-farmer-with-crops-hand-illustration_635702-11.jpg" class="img-fluid" alt="Farmer Image" width="500px" height="30px"/>
+        </div>
+
+        <!-- Form Section -->
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 login-form">
+          <form action="/signup" method="post">
+            <!-- Title -->
+            <h2 class="title mb-4">User Sign Up</h2>
+
+            <!-- Social login buttons -->
+            <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4 social-login">
+              <p class="lead fw-normal mb-0 me-3">Sign up with</p>
+              <button type="button" class="btn btn-farmer btn-floating mx-1">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+              <button type="button" class="btn btn-farmer btn-floating mx-1">
+                <i class="fab fa-twitter"></i>
+              </button>
+              <button type="button" class="btn btn-farmer btn-floating mx-1">
+                <i class="fab fa-linkedin-in"></i>
+              </button>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider">
+              <span class="divider-text">Or</span>
+            </div>
+
+            <!-- Name input with floating label -->
+            <div class="form-outline mb-4">
+              <input name="name" type="text" id="form3Example1" class="form-control form-control-lg" placeholder=" " required />
+              <label class="form-label" for="form3Example1">Full Name</label>
+            </div>
+
+            <!-- Email input with floating label -->
+            <div class="form-outline mb-4">
+              <input name="email" type="email" id="form3Example2" class="form-control form-control-lg" placeholder=" " required />
+              <label class="form-label" for="form3Example2">Email address</label>
+            </div>
+            <!-- Password input with floating label -->
+            <div class="form-outline mb-3">
+              <input name="password" type="password" id="form3Example3" class="form-control form-control-lg" placeholder=" " required />
+              <label class="form-label" for="form3Example3">Password</label>
+            </div>
+            <!-- Confirm Password input with floating label -->
+            <div class="form-outline mb-4">
+              <input name="confirmpwd" type="password" id="form3Example4" class="form-control form-control-lg" placeholder=" " required />
+              <label class="form-label" for="form3Example4">Confirm Password</label>
+            </div>
+
+            <!-- Sign up button and login prompt -->
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button type="submit" class="btn btn-farmer btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Sign Up</button>
+              <p class="small fw-bold mt-2 pt-1 mb-0">Already have an account? <a href="/login" class="link-danger">Login</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+      <div class="mb-3">
+        Copyright © 2020. All rights reserved.
+      </div>
+      <div>
+        <a href="#!" class="me-4">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#!" class="me-4">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#!" class="me-4">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="#!">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+  <% if (typeof error !== 'undefined') { %>
+    <script>
+      alert("<%= error %>");
+    </script>
+  <% } %>
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
